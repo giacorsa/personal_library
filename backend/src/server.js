@@ -6,7 +6,7 @@ import bookRoutes from './routes/bookRoutes.js'; // importazione delle rotte per
 import libraryRoutes from './routes/libraryRoutes.js'; // importazione delle rotte per la libreria personale
 
 const app = express();
-const host = "127.0.0.1";
+const host = process.env.HOST || "127.0.0.1";
 
 const port = Number(process.env.PORT || 3000);
 
