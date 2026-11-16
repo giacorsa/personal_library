@@ -1,17 +1,22 @@
 # Personal Library
 
-Personal Library is a full-stack application for finding books and organizing a personal reading collection. Create an account, sign in, search Open Library by title or author, and save works to your own library. You can view book details, update reading statuses, and remove books from your collection.
+Personal Library is a full-stack application (SPA) for finding books and organizing a personal reading books collection. Create an account, sign in, search Open Library by title or author, and save works to your own library. You can view book details, update reading statuses, and remove books from your collection.
 
 The frontend uses Vue, Vite, and Font Awesome. Vue components switch views within a single page. The backend uses Node.js and Express, and MySQL stores accounts, books, library entries, and sessions. Search results represent Open Library works, so a saved entry refers to a work rather than a specific edition.
 
 ## Book data from Open Library
 
-The Express backend uses [Open Library](https://openlibrary.org/) to search for books by title or author and retrieve details about individual works. Open Library was chosen because its public JSON endpoints are easy to use and the read requests used by this project do not require an API key.
+The Express backend uses the [Open Library API](https://openlibrary.org/developers/api) to search for books by title or author and retrieve details about individual works. Open Library was chosen because its public JSON endpoints are easy to use and the endpoints used by this project do not require an API key.
 
-- `GET /search.json` returns search results for a title or author. See the [Search API documentation](https://openlibrary.org/dev/docs/api/search).
-- `GET /works/{workId}.json` returns details for a specific work, such as `OL1168083W`. See the [Open Library API documentation](https://openlibrary.org/developers/api).
+## Live demo
 
-The Vue frontend calls the application's Express API. Express calls Open Library and returns the data the interface needs. Search results represent works, and users' saved books and reading statuses are stored in the application's MySQL database.
+Personal Library is deployed on Railway. [Open the live app](https://personallibrary-production-af850881.up.railway.app/).
+
+1. Select **Create an account** and register.
+2. Select **Sign in** and log in with your account.
+3. Open **Search books** to find a work by title or author, then select **Add to my library**.
+4. Open **My library** to view saved works, update their reading status, or remove them.
+5. Select **Sign out** when you are done.
 
 ## Project structure
 
@@ -32,14 +37,16 @@ personal_library/
 │   ├── package.json
 │   ├── pnpm-lock.yaml
 │   └── vite.config.js
+├── .dockerignore
+├── Dockerfile
 └── README.md
 ```
 
-## Prerequisites
+## Local development prerequisites
 
-- Node.js 24 and pnpm
+- Node.js 24 and pnpm 11.20.0
 - A running MySQL Server 8.0 instance
-- MySQL Workbench 8.0 or the MySQL command-line client
+- MySQL Workbench 8.0 or the `mysql` command-line client to run the database migration.
 - Internet access for Open Library searches and book covers
 
 MySQL Workbench is a client. Start MySQL Server before running the migration or launching the backend.
@@ -66,19 +73,19 @@ Start MySQL Server 8.0.
 3. At the `mysql>` prompt, run the migration and verify the tables.
 
    ```sql
-   SOURCE backend/database/migrations.sql;
+   SOURCE backend/database/migrations.sql
    USE personal_libraries;
    SHOW TABLES;
    ```
 
-   The output should list `books`, `sessions`, `user_library`, and `users`. See the [MySQL documentation on executing SQL script files](https://dev.mysql.com/doc/refman/8.0/en/mysql-batch-commands.html).
+   The output should list `books`, `sessions`, `user_library`, and `users`.
 
 #### Option B — MySQL Workbench 8.0
 
 1. Open MySQL Workbench and connect to your local MySQL Server.
 2. In the SQL Editor, choose **File → Open SQL Script** and open `backend/database/migrations.sql`.
 3. With no text selected, click the lightning-bolt button labeled **Execute the selected portion of the script or everything, if there is no selection**. Check **Action Output** for errors.
-4. Refresh the **Schemas** panel, expand `personal_libraries`, and open **Tables**. Confirm that `books`, `sessions`, `user_library`, and `users` are present. See the [MySQL Workbench SQL Editor toolbar documentation](https://dev.mysql.com/doc/workbench/en/wb-sql-editor-toolbar.html).
+4. Refresh the **Schemas** panel, expand `personal_libraries`, and open **Tables**. Confirm that `books`, `sessions`, `user_library`, and `users` are present.
 
 After running the migration, keep `DB_NAME=personal_libraries` in `backend/.env`. The MySQL account configured in that file needs `SELECT`, `INSERT`, `UPDATE`, and `DELETE` permissions on the application database.
 
@@ -144,14 +151,3 @@ Registration stores an Argon2 password hash in MySQL. After a successful sign-in
 4. Remove the work and sign out.
 
 If the backend fails to start, check that MySQL Server is running, the settings in `.env` match your connection, and `migrations.sql` has been executed. If the frontend loads but API requests fail, verify that Express is running and that the Vite proxy points to its port.
-
-## Production build
-
-Run `pnpm build` from `frontend` to generate the frontend assets in `frontend/dist`. A deployed instance also needs a running Express backend and a MySQL database initialized with `backend/database/migrations.sql`. The deployment must route browser requests under `/api` to Express and serve the application over HTTPS so the production session cookie can be sent.
-
-## References
-
-- [MySQL Workbench SQL Editor](https://dev.mysql.com/doc/workbench/en/wb-sql-editor.html)
-- [Express session middleware](https://expressjs.com/en/resources/middleware/session.html)
-- [Vite development server proxy](https://vite.dev/config/server-options.html#server-proxy)
-- [Open Library](https://openlibrary.org/)
