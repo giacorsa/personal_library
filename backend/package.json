@@ -4,6 +4,7 @@
   "private": true,
   "description": "Backend for the Personal Library application",
   "type": "module",
+  "packageManager": "pnpm@11.20.0",
   "scripts": {
     "start": "node --env-file=.env src/server.js"
   },
