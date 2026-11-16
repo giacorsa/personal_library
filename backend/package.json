@@ -1,0 +1,17 @@
+{
+  "name": "personal-library-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Backend for the Personal Library application",
+  "type": "module",
+  "scripts": {
+    "start": "node --env-file=.env src/server.js"
+  },
+  "dependencies": {
+    "argon2": "^0.45.2",
+    "express": "^5.3.0",
+    "express-session": "^1.19.0",
+    "mysql2": "^3.24.6",
+    "zod": "^4.6.7"
+  }
+}
