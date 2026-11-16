@@ -1,11 +1,19 @@
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
 import express from "express";  // 
-import  pool  from "./config/database.js";  // default export, senza le parentesi graffe, perché è un export di default
-import authRoutes from "./routes/authRoutes.js";  // default export, senza le parentesi graffe, perché è un export di default 
-import sessionMiddleware from './config/sessions.js'; // gestione delle sessioni, importazione del middleware per la gestione delle sessioni
-import bookRoutes from './routes/bookRoutes.js'; // importazione delle rotte per i libri
-import libraryRoutes from './routes/libraryRoutes.js'; // importazione delle rotte per la libreria personale
+import  pool  from "./config/database.js";  
+import authRoutes from "./routes/authRoutes.js"; 
+import sessionMiddleware from './config/sessions.js';
+import bookRoutes from './routes/bookRoutes.js'; 
+import libraryRoutes from './routes/libraryRoutes.js'; 
 
 const app = express();
+
+if (process.env.NODE_ENV === "production") {
+  app.set("trust proxy", 1);
+}
+
 const host = process.env.HOST || "127.0.0.1";
 
 const port = Number(process.env.PORT || 3000);
@@ -28,11 +36,14 @@ app.use('/api/books', bookRoutes);
 // viene aggiunto a tutte le rotte definite in libraryRoutes.js
 app.use('/api/library', libraryRoutes); 
 
-app.get("/", (request, response) => {
-  response.json({
-    message: "Personal Library API is running",
-    user: "UTENTE : " + process.env.DB_USER,
-  });
+const frontendDist = fileURLToPath(
+  new URL("../../frontend/dist/", import.meta.url)
+);
+
+app.use(express.static(frontendDist));
+
+app.get("/", (_request, response) => {
+  response.sendFile(path.join(frontendDist, "index.html"));
 });
 
 app.use( (error, request, response, next) => {
