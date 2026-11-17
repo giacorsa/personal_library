@@ -1,4 +1,4 @@
-/* ---------- Impostazioni comuni ---------- */
+/* ---------- common settings ---------- */
 
 :root {
   color-scheme: light;
@@ -55,7 +55,7 @@ a {
   color: #2456a6;
 }
 
-/* ---------- Navigazione e pulsanti ---------- */
+/* ---------- Nav and buttons ---------- */
 
 nav {
   display: flex;
@@ -99,7 +99,7 @@ button[aria-pressed="true"] {
   color: #ffffff;
 }
 
-/* ---------- Registratio, login and research forms ---------- */
+/* ---------- Registration, login and research forms ---------- */
 
 form {
   width: 100%;
@@ -115,15 +115,15 @@ label {
 
 input,
 select {
-  width: 100%; /* Occupa la larghezza disponibile nel modulo o nella scheda. */
-  min-width: 0; /* Consente al controllo di restringersi. */
-  min-height: 44px; /* Mantiene un'altezza comoda per l'interazione touch. */
-  padding: 0.6rem; /* Distanzia il testo dai bordi. */
-  border: 1px solid #b8c1ce; /* Disegna il bordo del campo. */
-  border-radius: 5px; /* Arrotonda gli angoli. */
-  background-color: #ffffff; /* Usa uno sfondo chiaro. */
-  color: #253047; /* Imposta il colore del testo. */
-  font: inherit; /* Usa la stessa tipografia dell'app. */
+  width: 100%; 
+  min-width: 0; 
+  min-height: 44px; 
+  padding: 0.6rem;
+  border: 1px solid #b8c1ce; 
+  border-radius: 5px; 
+  background-color: #ffffff; 
+  color: #253047; 
+  font: inherit;
 }
 
 fieldset {

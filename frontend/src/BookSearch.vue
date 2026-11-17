@@ -80,10 +80,10 @@ function submitSearch() {
   loadSearchPage(1);
 }
 
-// loadSearchPage e loadBookDetails sono funzioni asincrone che gestiscono le richieste al server per
-// cercare libri e ottenere i dettagli di un libro specifico. Queste funzioni aggiornano lo
-// stato dell'applicazione in base ai risultati delle richieste, gestendo anche eventuali errori
-// e lo stato di caricamento.
+// loadSearchPage and loadBookDetails are asynchronous functions that handle requests to the server to
+// search for books and get details about a specific book.
+// These functions update the application state based on the results of the requests, 
+// and also handle any errors and the loading status.
 async function loadSearchPage(page) {
   if (isBusy.value || !lastSearch.value) {
     return;
@@ -144,7 +144,7 @@ async function loadBookDetails(workId) {
   }
 }
 
-// addToLibrary è una funzione asincrona che gestisce l'aggiunta di un libro alla libreria personale dell'utente.
+// addToLibrary is an asynchronous function that handles adding a book to the user's personal library.
 async function addToLibrary(book) {
   if (isBusy.value || savedWorkIds.value.includes(book.workId)) {
     return;

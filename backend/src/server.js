@@ -18,22 +18,22 @@ const host = process.env.HOST || "127.0.0.1";
 
 const port = Number(process.env.PORT || 3000);
 
-// middleware per il parsing del body in formato JSON
+// middleware for parsing the body in JSON format
 app.use(express.json());  
 
-// middleware per la gestione delle sessioni
+// middleware for handling sessions
 app.use(sessionMiddleware);  
 
-// middleware per le rotte di autenticazione, il prefisso /api/auth 
-// viene aggiunto a tutte le rotte definite in authRoutes.js
+// middleware for authentication routes, this prefix /api/auth 
+// is added to all routes defined in authRoutes.js
 app.use("/api/auth", authRoutes);
 
-// middleware per le rotte dei libri, il prefisso /api/books 
-// viene aggiunto a tutte le rotte definite in bookRoutes.js
+// middleware for books routes, this prefix /api/books 
+// has been added to all routes defined in bookRoutes.js
 app.use('/api/books', bookRoutes);
 
-// middleware per le rotte della libreria personale, il prefisso /api/library 
-// viene aggiunto a tutte le rotte definite in libraryRoutes.js
+// middleware for personal library routes, this prefix /api/library 
+// has been added to all routes defined in libraryRoutes.js
 app.use('/api/library', libraryRoutes); 
 
 const frontendDist = fileURLToPath(
@@ -69,6 +69,6 @@ try {
 } catch (error) {
   console.error("Error connecting to the database:", error);
 
-  await pool.end(); // si può usare senza async perchè è ES Module e non CommonJS: "type": "module" in package.json
+  await pool.end();
   process.exit(1);
 }

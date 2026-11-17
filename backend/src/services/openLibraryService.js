@@ -39,7 +39,7 @@ export async function searchBooks({
   }
 
   const searchUrl = new URL(searchEndpoint);
-  searchUrl.searchParams.set(field, query); // Setta il campo di ricerca (title (default) o author ) nella query string
+  searchUrl.searchParams.set(field, query); 
   searchUrl.searchParams.set("page", String(page));
   searchUrl.searchParams.set("limit", String(limit));
   searchUrl.searchParams.set("fields", "key, title, author_name, cover_i");

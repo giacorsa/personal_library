@@ -106,7 +106,7 @@ export async function updateReadingStatus(userId, bookId, readingStatus) {
     [userId, bookId]
   );
 
-  // restituisce true se il libro esiste nella libreria dell'utente, altrimenti false
+  // return true if the book already exists in the user library, else false
   return rows.length > 0;
 }
 
@@ -121,6 +121,6 @@ export async function removeBookForUser(userId, bookId) {
     bookId
   ]);
 
-  // restituisce true se il libro è stato rimosso, altrimenti false
+  // return true if the bokk has been already removed, else false
   return result.affectedRows > 0;
 }

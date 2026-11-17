@@ -68,7 +68,7 @@ async function signOut() {
   }
 }
 
-onMounted(loadCurrentUser); // chiama /api/auth/me per verificare se l'utente è già autenticato al montaggio del componente
+onMounted(loadCurrentUser); // Calls /api/auth/me to check if the user is already authenticated when mounting the component
 </script>
 
 <template>
@@ -78,7 +78,6 @@ onMounted(loadCurrentUser); // chiama /api/auth/me per verificare se l'utente è
 
 	<main v-else-if="currentUser">
 	  <h1>Private Area<span> of <strong>{{ currentUser.username }}</strong></span></h1>
-	  <!-- Welcome, <strong>{{ currentUser.username }}</strong> -->
 
 	  <nav aria-label="Private Area">
       <button

@@ -14,7 +14,7 @@ const searchQuerySchema = z.strictObject({
 
 const workKeySchema = z.string().regex(/^OL\d+W$/);
 
-// Funzione per gestire gli errori provenienti dalle richieste a Open Library
+// This function handles errors coming from request toOpen Library
 function sendOpenLibraryError(response, error) {
   console.error("Open Library request failed", error.status ?? error.name);
 
@@ -35,9 +35,9 @@ function sendOpenLibraryError(response, error) {
   });
 }
 
-// Rotta per la ricerca dei libri
+// Research book route
 router.get("/search", requireAuth, async (request, response) => {
-  // ?q=George+Orwell&field=author, legge i valori dopo ?
+  
   const validationResult = searchQuerySchema.safeParse(request.query);
 
   if (!validationResult.success) {
@@ -73,8 +73,7 @@ router.get("/search", requireAuth, async (request, response) => {
 });
 
 router.get("/:workKey", requireAuth, async (request, response) => {
-  // /api/books/OL12345W, legge un segmento del percorso come parametro dinamico,
-  // in questo caso il workKey, che rappresenta l'identificativo univoco di un'opera su Open Library
+
   const validationResult = workKeySchema.safeParse(request.params.workKey);
 
   if (!validationResult.success) {
