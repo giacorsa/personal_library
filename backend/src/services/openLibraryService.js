@@ -6,12 +6,6 @@ const searchEndpoint = "https://openlibrary.org/search.json";
 async function fetchOpenLibraryJson(url) {
 
   const headers = { Accept: "application/json" };
-  
-  // const contact = process.env.OPEN_LIBRARY_CONTACT?.trim();
-
-  // if (contact) {
-  //   headers["User-Agent"] = `PersonalLibrary/1.0 (${contact})`;
-  // }
 
   const response = await fetch(url, {
     headers,
